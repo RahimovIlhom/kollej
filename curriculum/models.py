@@ -81,3 +81,6 @@ class Lesson(models.Model):
 
     def get_absolute_url(self):
         return reverse('curriculum:lesson_list', kwargs={'slug': self.subject.slug, 'standard': self.Standard.slug})
+
+
+print(Standard)

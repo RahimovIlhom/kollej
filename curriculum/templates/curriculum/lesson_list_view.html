@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for lesson in subjects.lessons.all %}
+
+<a href="{% url 'curriculum:lesson_detail' slug=lesson.slug subject=subjects.slug standard=lesson.Standard.slug %}">{{lesson.position}} - dars: {{lesson.name}}</a><br>
+
+{% endfor %}
+
+{% endblock %}
