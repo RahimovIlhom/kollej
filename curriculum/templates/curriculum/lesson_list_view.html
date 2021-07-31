@@ -7,5 +7,6 @@
 <a href="{% url 'curriculum:lesson_detail' slug=lesson.slug subject=subjects.slug standard=lesson.Standard.slug %}">{{lesson.position}} - dars: {{lesson.name}}</a><br>
 
 {% endfor %}
+<a href="{% url 'curriculum:lesson_create' standard=subjects.standard.slug slug=subjects.slug %}"><button type="button" class="btn-primary"> Yangi dars qo'shish</button> </a>
 
 {% endblock %}

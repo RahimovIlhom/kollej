@@ -12,7 +12,6 @@ def index(request):
 
 
 def register(request):
-
     registered = False
 
     if request.method == "POST":
@@ -36,9 +35,9 @@ def register(request):
         profile_form = UserProfileInfoForm()
 
     return render(request, 'app_users/registration.html',
-                            {'registered':registered,
-                             'user_form':user_form,
-                             'profile_form':profile_form})
+                  {'registered': registered,
+                   'user_form': user_form,
+                   'profile_form': profile_form})
 
 
 def user_login(request):
@@ -50,7 +49,7 @@ def user_login(request):
 
         if user:
             if user.is_active:
-                login(request,user)
+                login(request, user)
                 return HttpResponseRedirect(reverse('index'))
             else:
                 return HttpResponse("ACCOUNT IS DEACTIVATED")

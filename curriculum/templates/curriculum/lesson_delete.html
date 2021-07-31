@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Siz ushbu darsni o'chirishni xohlaysizmi?</h3>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="delete">
+    <a href="{% url 'curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-warning btn-block">Bekor qilish</a>
+</form>
+
+{% endblock %}
