@@ -7,4 +7,29 @@
 <a href="{% url 'curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-warning btn-lg mr-4 btn-block">Dasrni yangilash</a>
 <a href="{% url 'curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-danger btn-lg mr-4 btn-block">Darsni o'chirish</a>
 
+<h4>Savollaringiz va fikirlaringizni post qilib qoldiring:</h4>
+<form method="post">
+    <div class="form-group">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" name="form" value="Comment qo'shish" class="btn btn-primary btn-sm">
+    </div>
+</form>
+
+{% for comment in lessons.comments.all %}
+<h4>{{comment.author}}<small><i>Post vaqti: {{comment.date_added}}</i></small></h4>
+<p>{{comment.body}}</p>
+{% for reply in comment.replies.all %}
+<h5>{{reply.author}}<small><i>Post vaqti {{reply.date_added}}</i></small></h5>
+<p>{{reply.reply_body}}</p>
+{% endfor %}
+
+<form method="post">
+    <input type="hidden" name="comment.id" value="{{comment.id}}">
+    <input type="hidden" name="comment.comm_name" value="{{comment.comm_name}}">
+    {% csrf_token %}
+    {{form2.as_p}}
+    <input type="submit" name="form2" value="Javob qo'shish" class="btn btn-warning btn-sm">
+</form>
+{% endfor %}
 {% endblock %}
