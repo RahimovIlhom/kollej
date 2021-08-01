@@ -32,3 +32,15 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=150)
+    email = models.CharField(max_length=150)
+    feedback = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('index')

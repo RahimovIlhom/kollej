@@ -4,11 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from django.views.generic import TemplateView
+from curriculum.views import Standard
+from .models import UserProfileInfo, Contact
+from django.views.generic import CreateView
 
 # Create your views here.
-def index(request):
-    return render(request, 'base.html')
 
 
 def register(request):
@@ -65,3 +66,21 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+class HomeView(TemplateView):
+    template_name = 'app_users/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        standards = Standard.objects.all()
+        teachers = UserProfileInfo.objects.filter(user_type='teacher')
+        context['standards'] = standards
+        context['teachers'] = teachers
+        return context
+
+
+class ContactView(CreateView):
+    model = Contact
+    fields = '__all__'
+    template_name = 'app_users/contact.html'
