@@ -9,7 +9,7 @@ def path_and_rename(instance, filename):
     ext = filename.split('.')[-1]
     # get filename
     if instance.pk:
-        filename = 'ser_Profile_Pictures/{}.{}'.format(instance.pk, ext)
+        filename = 'User_Profile_Pictures/{}.{}'.format(instance.pk, ext)
     return os.path.join(upload_to, filename)
 
 
@@ -33,14 +33,3 @@ class UserProfileInfo(models.Model):
     def __str__(self):
         return self.user.username
 
-
-class Contact(models.Model):
-    name = models.CharField(max_length=150)
-    email = models.CharField(max_length=150)
-    feedback = models.TextField()
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('index')

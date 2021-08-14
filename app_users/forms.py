@@ -22,7 +22,7 @@ class UserForm(UserCreationForm):
 
 
 class UserProfileInfoForm(forms.ModelForm):
-    bio = forms.CharField(required=False)
+    bio = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Bio'}))
     teacher = 'teacher'
     student = 'student'
     parent = 'parent'

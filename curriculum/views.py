@@ -6,6 +6,8 @@ from .models import Standard, Subject, Lesson
 from .forms import LessonForm, ReplyForm, CommentForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from app_users.models import UserProfileInfo
 
 
 class StandardListView(ListView):
@@ -34,11 +36,15 @@ class LessonDetailView(DetailView, FormView):
     second_form_class = ReplyForm
 
     def get_context_data(self, **kwargs):
+        profiles = UserProfileInfo.objects.all()
+        users = User.objects.all()
         context = super(LessonDetailView, self).get_context_data(**kwargs)
         if 'form' not in context:
             context['form'] = self.form_class()
         if 'form2' not in context:
             context['form2'] = self.second_form_class()
+        context['profiles'] = profiles
+        context['users'] = users
         # context['comments'] = Comment.objects.filter(id=self.object.id)
         return context
 

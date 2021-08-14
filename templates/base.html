@@ -1,110 +1,229 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
   {% load static %}
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{%block title%}{%endblock%}</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'css/master_css.css' %}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+  <link href="{% static 'css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body>
-  <!-- navigation bar -->
-  <nav class="navbar navbar-expand-lg  navbar-light bg-light fixed-top scrolling-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="{% url 'index' %}" style="color:#ff5722;">Bosh sahifa</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="basicExampleNav">
-        <ul class=" navbar-nav  mr-auto smooth-scroll ">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'curriculum:standard_list' %}">Ta'lim</a>
-          </li>
-          {% if user.is_superuser %}
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'admin:index' %}">Admin</span> </a>
-          </li>
-          {%endif%}
-          {% if user.is_authenticated %}
-          <li class="nav-item  ">
-            <a class="nav-link" href="{% url 'user_logout' %}">Chiqish</a>
-          </li>
-          {% else %}
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'user_login' %}">Kirish</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'register' %}">Ro'yhatdan o'tish</span> </a>
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Biz bilan aloqa</a>
-          </li>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  <div class="site-wrap">
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
 
-        </ul>
+    <div class="py-2 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7 d-none d-lg-block">
+            <a href="#!" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Murojaat
+              uchun?</a>
+            <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> +99 894 646 24 99</a>
+            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span>
+              oybeknarzullaev99@gmail.com</a>
+          </div>
+          <div class="col-lg-5 text-right">
+
+            {% if user.is_superuser %}
+            <a href="{% url 'admin:index' %}" class="small mr-3"><span class="icon-person">
+              </span> Admin</a>
+            <a href="{% url 'user_logout' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Chiqish</a>
+            {% elif user.is_authenticated %}
+            <a href="{% url 'admin:index' %}" class="small mr-3"><span class="icon-person">
+              </span> {{user.first_name}} {{user.last_name}}</a>
+            <a href="{% url 'user_logout' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Chiqish</a>
+            {% else %}
+            <a href="{% url 'user_login' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Kirish</a>
+            <a href="{% url 'register' %}" class="small btn btn-primary px-4 py-2 rounded-0"><span
+                class="icon-users"></span> Hisob ochish</a>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
-  {% block image_block %}
-  {% endblock %}
+
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+          <div class="site-logo">
+            <a href="{% url 'index' %}" class="d-block">
+              <img src="{% static 'images/logo4.jpg' %}" alt="Image" class="img-fluid">
+            </a>
+          </div>
+          <div class="mr-auto">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li class="active">
+                  <a href="{% url 'index' %}" class="nav-link text-left">Bosh sahifa</a>
+                </li>
+                <li>
+                  <a href="{% url 'curriculum:standard_list' %}" class="nav-link text-left">Ta'lim</a>
+                </li>
+                <li>
+                  <a href="#news-updates" class="nav-link text-left">Yangiliklar</a>
+                </li>
+                <li>
+                  <a href="#about_school" class="nav-link text-left">Maktabimiz haqida</a>
+                </li>
+                <li>
+                  <a href="{% url 'about_us' %}" class="nav-link text-left">Biz haqimizda</a>
+                </li>
+              </ul>
+              </ul>
+            </nav>
+
+          </div>
+          <div class="ml-auto">
+            <div class="social-wrap">
+              <a href="#"><span class="icon-facebook" title='facebook'></span></a>
+              <a href="#"><span class="icon-telegram" title='telegram'></span></a>
+
+              <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                  class="icon-menu h3"></span></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </header>
 
 
-  <div class="container">
-    {%block content%}
-    {%endblock%}
+    {% block content %}{% endblock content %}
+
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <p class="mb-4">
+              <img src="{% static 'images/logo4.jpg' %}" alt="Image" class="img-fluid" />
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae
+              nemo minima qui dolor, iusto iure.
+            </p>
+            <p><a href="{% url 'about_school' %}">Batafsil</a></p>
+          </div>
+          <div class="col-lg-3">
+            <h3 class="footer-heading"><span>Sayt xaritasi</span></h3>
+            <ul class="list-unstyled">
+              <li><a href="#">Bosh sahifa</a></li>
+              <li>
+                <a href="{% url 'curriculum:standard_list' %}">Ta'lim</a>
+              </li>
+              <li><a href="#news-updates">Yangiliklar</a></li>
+              <li><a href="#about_school">Maktabimiz haqida</a></li>
+              <li><a href="{% url 'about_us' %}">Biz haqimizda</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h3 class="footer-heading"><span>To'garaklarimiz</span></h3>
+            <ul class="list-unstyled">
+              <li><a href="#courses">Math</a></li>
+              <li><a href="#courses">Science &amp; Engineering</a></li>
+              <li><a href="#courses">Arts &amp; Humanities</a></li>
+              <li><a href="#courses">Economics &amp; Finance</a></li>
+              <li><a href="#courses">Business Administration</a></li>
+              <li><a href="#courses">Computer Science</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h3 class="footer-heading"><span>Murojaat uchun</span></h3>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!" class="small mr-3"><span class="icon-phone2 mr-2"></span> +99 894 646 24 99</a>
+              </li>
+              <li>
+                <a href="#!" class="small mr-3"><span class="icon-envelope-o mr-2"></span>
+                  oybeknarzullaev99@gmail.com</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% for profile in profiles %}
+
+        {% if True %}
+
+        <a href="#"><span>{{profile.user_id}} user id {{user.id}}</span></a>
+
+        {% endif %}
+
+        {% endfor %}
+        <div class="row">
+          <div class="col-12">
+            <div class="copyright">
+              <p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                All rights reserved | This template is made with
+                <i class="icon-heart" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .site-wrap -->
+
+  <!-- loader -->
+  <div id="loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+      <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+      <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+        stroke="#51be78" />
+    </svg>
   </div>
 
-  <footer class="page-footer" style="background-color:#b2ebf2;">
-    <div class="container">
-      <div class="row mt-4">
-        <div class="col-md-4 mt-4">
-          <h3>Biz haqimizda</h3> <br>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.</p>
-        </div>
-        <div class="col-md-4 mt-4">
-          <h3>Boshqalar: </h3>
-          <ul>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-          </ul>
-        </div>
-        <div class="col-md-4 mt-4">
-          <h3>Biz bilan aloqa</h3>
-          <ul>
-            <li>Address: Jizzax Shahri 8 - maktab</li>
-            <li>info@gmail.com</li>
-            <li>Telefon raqam</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-copyright text-center py-3">
-        <p>© 2020 Copyright</p>
-      </div>
-    </div>
-  </footer>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sticky.js' %}"></script>
+  <script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
-  <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>

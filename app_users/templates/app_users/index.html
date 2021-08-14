@@ -1,206 +1,676 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}index page{% endblock %}
+{% extends 'base.html' %} {% load static %} Bosh sahifa{% block content %}
 
-{% block image_block%}
-<header>
-    <!--Image and mask-->
-    <div id="intro" class="container-fluid d-flex align-items-center justify-content-center h-100">
-        <div class="row d-flex justify-content-center text-center">
-            <div class="col-md-10 text-white">
-                <!-- heading -->
-                <h2 class="display-4 font-weight-bold white-text  p-5 mb-2" style="color:#ff5722;"> 22 - o'rta
-                    umumta'lim maktabi
-                </h2>
-
-                <!-- divider -->
-                <hr style="color:#ff5722;">
-
-                <!-- description -->
-                <h4 class="white-text my-4">G'allaorol tumani Lalmikor shaharchasi.</h4>
-                <a href="{% url 'curriculum:standard_list' %}"> <button type="button" class="btn"
-                        style="color:#ff5722;border-color:#ff5722;"> Hoziroq boshlash</button> </a>
-
-                <!-- feedback and github -->
-                <div class="row d-flex mt-5 justify-content-center text-center">
-                    <div class="col">
-                        <a href="contact"> <button type="button" class="btn"
-                                style="color:#ff5722;border-color:#ff5722;">Fikr
-                                yuborish</button> </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</header>
-{%endblock%}
-
-{% block content %}
-
-<main class="mt-5">
+<!--index-->
+<div class="hero-slide owl-carousel site-blocks-cover">
+  <div
+    class="intro-section"
+    style="background-image: url('{% static 'images/hero_5.jpg' %}')"
+  >
     <div class="container">
-        <!-- section 1 for standards-->
+      <div class="row align-items-center">
+        <div class="col-lg-12 mx-auto text-center" data-aos="fade-up">
+          <h1>Jizzax <br />viloyati</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <section class="text-center">
-            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Ta'limni boshlang</h2>
-            <!-- class row for description-->
-            <div class="row d-flex justify-content-center mb-4">
-                <!-- class column -->
-                <div class="col-md-8">
-                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
-                        hic
-                        provident nulla repellat
-                        facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
-                        est
-                        sit pariatur.</p>
-                </div>
-            </div>
-            <!-- class row2 for cards -->
-            <div class="row">
-                {% for standard in standards %}
-                <div class="col-md-4 d-flex mb-5 justify-content-center">
-                    <div class="card text-center" style="width: 18rem;">
-                        <div class="card-body">
-                            <h4 class="card-title" style="color:#ff5722;">{{standard.name}}</h4>
-                            <p class="card-text">{{standard.description|truncatechars:75}}</p>
-                            {% if user.is_authenticated %}
-                            <a href="{% url 'curriculum:subject_list' slug=standard.slug %}" class="btn btn-primary"
-                                style="background-color:#00bcd4;">O'qishni boshlash</a>
-                            {%else%}
-                            <p>O'qishni boshlash uchun Tizimga kirish yoki registratsiya</p>
-                            <a href="{% url 'user_login' %}" class="btn btn-primary"
-                                style="background-color:#00bcd4;">Kirish</a>
-                            <a href="{% url 'register' %}" class="btn btn-primary"
-                                style="background-color:#00bcd4;">Registratsiya</a>
-                            {%endif%}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-        <hr class="my-5" style="color:#ff5722;">
-        <!-- Section 2: Faculty Members -->
+  <div
+    class="intro-section"
+    style="background-image: url('{% static 'images/hero_2.jpg' %}')"
+  >
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12 mx-auto text-center" data-aos="fade-up">
+          <h1>G'allaorol <br />tumani</h1>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <section class="text-center">
-            <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Bizning fakultetimiz bilan tanishing</h2>
-            <div class="row d-flex justify-content-center mb-4">
-                <div class="col-md-8">
-                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
-                        hic
-                        provident nulla repellat
-                        facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
-                        est
-                        sit pariatur.</p>
-                </div>
-                <div class="row d-flex justify-content-center mb-3">
-                    {% for teacher in teachers %}
-                    <div class="card mb-3 mr-5 ml-3" style="max-width: 500px;">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                {% if teacher.profile_pic %}
-                                <img src="{{teacher.profile_pic.url|default_if_none:'#'}}" class="card-img"
-                                    alt="Rasm topilmadi">
-                                {% else %}
-                                <img src="" alt="Rasm topilmadi">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color:#ff5722;">{{teacher.user.username}}</h5>
-                                    <p class="card-text">{{teacher.bio|truncatechars:75}}</p>
-                                    <p class="card-text"><small class="text-muted"></small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+  <div
+    class="intro-section"
+    style="background-image: url('{% static 'images/hero_3.webp' %}')"
+  >
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12 mx-auto text-center" data-aos="fade-up">
+          <h1>22 - umumta'lim<br />maktabi</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <hr class="my-5" style="color:#ff5722;">
+<div></div>
+
+<div class="site-section">
+  <div class="container">
+    <div class="row mb-5 justify-content-center text-center">
+      <div class="col-lg-4 mb-5">
+        <h2 class="section-title-underline mb-5">
+          <span>O'qishni boshlaymiz</span>
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <div class="feature-1 border">
+          <div class="icon-wrapper bg-primary">
+            <span class="flaticon-mortarboard text-white"></span>
+          </div>
+          <div class="feature-1-content">
+            <h2>Video darslarni kuzating</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi
+              hendrerit elit
+            </p>
+            {% if user.is_authenticated %}
+            <p>
+              <a
+                href="{% url 'curriculum:standard_list' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% else %}
+            <p>
+              <a
+                href="{% url 'user_login' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <div class="feature-1 border">
+          <div class="icon-wrapper bg-primary">
+            <span class="flaticon-school-material text-white"></span>
+          </div>
+          <div class="feature-1-content">
+            <h2>Vazifalarni bajaring</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi
+              hendrerit elit
+            </p>
+            {% if user.is_authenticated %}
+            <p>
+              <a
+                href="{% url 'curriculum:standard_list' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% else %}
+            <p>
+              <a
+                href="{% url 'user_login' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <div class="feature-1 border">
+          <div class="icon-wrapper bg-primary">
+            <span class="flaticon-library text-white"></span>
+          </div>
+          <div class="feature-1-content">
+            <h2>Bilimingizni mustahkamlang</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi
+              hendrerit elit
+            </p>
+            {% if user.is_authenticated %}
+            <p>
+              <a
+                href="{% url 'curriculum:standard_list' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% else %}
+            <p>
+              <a
+                href="{% url 'user_login' %}"
+                class="btn btn-primary px-4 rounded-0"
+                >O'qishni boshlash</a
+              >
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="site-section" id="courses">
+  <div class="container">
+    <div class="row mb-5 justify-content-center text-center">
+      <div class="col-lg-6 mb-5">
+        <h2 class="section-title-underline mb-3">
+          <span>Bizning to'garaklarimiz</span>
+        </h2>
+        <p>Bosh vaqtingizni qo'shimcha ilm olishga sarflang</p>
+      </div>
     </div>
 
-    <!-- section 3 for activities -->
-
-    <section class="text-center full-width container-fluid" id="event-section">
-        <h2 class="mb-3 mt-5 font-weight-bold" style="color:#ff5722;">Kelgusi tadbirlar</h2>
-        <div class="row d-flex justify-content-center mb-4">
-            <div class="col-md-8">
-                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
-                    hic
-                    provident nulla repellat
-                    facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
-                    est
-                    sit pariatur.</p>
+    <div class="row">
+      <div class="col-12">
+        <div class="owl-slide-3 owl-carousel">
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_1.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Mobile Application</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
             </div>
+          </div>
+
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_2.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Web Design</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_3.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Arithmetic</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_4.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Mobile Application</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_5.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Web Design</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="course-1-item">
+            <figure class="thumnail">
+              <a href="course-single.html"
+                ><img
+                  src="{% static 'images/course_6.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="category"><h3>Mobile Application</h3></div>
+            </figure>
+            <div class="course-1-content pb-4">
+              <h2>How To Create Mobile Apps Using Ionic</h2>
+              <div class="rating text-center mb-3">
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+                <span class="icon-star2 text-warning"></span>
+              </div>
+              <p class="desc mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Similique accusantium ipsam.
+              </p>
+              <p>
+                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                  >A'zo bo'lish</a
+                >
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="row d-flex justify-content-center mb-4">
-            <!-- col for event 1 -->
-            <div class="card mb-3 mr-5 ml-3" style="max-width:450px;max-height:450px;">
-                <img src="https://static.dribbble.com/users/1783758/screenshots/6386088/vinyl-record-and-cover-presentation-mock-up_2x.png"
-                    alt="no image found" width="450" height="450">
-                <div class="event-mask justify-content-center">
-                    <div class="row d-flex justify-content-center">
-                        <h2 class="font-weight-bold" style="color:#ff5722;">Tadbir haqida</h2>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col">
-                            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi
-                                voluptate
-                                hic
-                                provident nulla repellat
-                                facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae
-                                debitis
-                                est
-                                sit pariatur.</p>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <a href="{% url 'user_login' %}" class="btn btn-primary mb-3"
-                            style="background-color:#ff5722;">Batafsil</a>
-                    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="about_school"
+  class="section-bg style-1"
+  style="background-image: url('{% static 'images/hero_2.jpg' %}')"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <h2 class="section-title-underline style-2">
+          <span>Maktabmiz haqida</span>
+        </h2>
+      </div>
+      <div class="col-lg-8">
+        <p class="lead">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem nesciunt
+          quaerat ad reiciendis perferendis voluptate fugiat sunt fuga error
+          totam.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+          assumenda omnis tempora ullam alias amet eveniet voluptas, incidunt
+          quasi aut officiis porro ad, expedita saepe necessitatibus rem debitis
+          architecto dolore? Nam omnis sapiente placeat blanditiis voluptas
+          dignissimos, itaque fugit a laudantium adipisci dolorem enim ipsum cum
+          molestias? Quod quae molestias modi fugiat quisquam. Eligendi
+          recusandae officiis debitis quas beatae aliquam?
+        </p>
+        <p><a href="{% url 'about_school' %}">Batafsil</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- // 05 - Block -->
+<div class="site-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-4">
+        <h2 class="section-title-underline">
+          <span>Faxriy ustozlarimiz</span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="owl-slide owl-carousel">
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_1.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            &ldquo;Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Neque, mollitia. Possimus mollitia nobis libero quidem aut tempore
+            dolore iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!&rdquo;
+          </p>
+        </div>
+      </div>
+
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_2.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque,
+            mollitia. Possimus mollitia nobis libero quidem aut tempore dolore
+            iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!
+          </p>
+        </div>
+      </div>
+
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_4.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            &ldquo;Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Neque, mollitia. Possimus mollitia nobis libero quidem aut tempore
+            dolore iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!&rdquo;
+          </p>
+        </div>
+      </div>
+
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_3.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque,
+            mollitia. Possimus mollitia nobis libero quidem aut tempore dolore
+            iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!
+          </p>
+        </div>
+      </div>
+
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_2.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            &ldquo;Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Neque, mollitia. Possimus mollitia nobis libero quidem aut tempore
+            dolore iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!&rdquo;
+          </p>
+        </div>
+      </div>
+
+      <div class="ftco-testimonial-1">
+        <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          <img
+            src="{% static 'images/person_4.jpg' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+          <div>
+            <h3>Allison Holmes</h3>
+            <span>Designer</span>
+          </div>
+        </div>
+        <div>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque,
+            mollitia. Possimus mollitia nobis libero quidem aut tempore dolore
+            iure maiores, perferendis, provident numquam illum nisi amet
+            necessitatibus. A, provident aperiam!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="section-bg style-1"
+  style="background-image: url('{% static 'images/hero_2.jpg' %}')"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+        <span class="icon flaticon-mortarboard"></span>
+        <h3>Nazariy ta'lim</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis
+          recusandae, iure repellat quis delectus ea? Dolore, amet
+          reprehenderit.
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+        <span class="icon flaticon-school-material"></span>
+        <h3>Muvafaqiyat</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis
+          recusandae, iure repellat quis delectus ea? Dolore, amet
+          reprehenderit.
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+        <span class="icon flaticon-library"></span>
+        <h3>Amaliyot</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis
+          recusandae, iure repellat quis delectus ea? Dolore, amet
+          reprehenderit.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="news-updates" id="news-updates">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading">
+          <h2 class="text-black">Yangiliklar &amp; Tadbirlar</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="post-entry-big">
+              <a href="news-single.html" class="img-link"
+                ><img
+                  src="{% static 'images/blog_large_1.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="post-content">
+                <div class="post-meta">
+                  <a href="#!">June 6, 2019</a>
+                  <span class="mx-1">/</span>
+                  <a href="#!">Admission</a>, <a href="#">Updates</a>
                 </div>
+                <h3 class="post-heading">
+                  <a href="news-single.html"
+                    >Campus Camping and Learning Session</a
+                  >
+                </h3>
+              </div>
             </div>
-            <!--col for event 2  -->
-            <div class="card mb-3 mr-5 ml-3" style="max-width: 450px;max-height:450px;">
-                <img src="https://c8.alamy.com/comp/2B8C4RC/debate-dialog-communication-and-education-concept-talking-about-political-opinions-two-cardboard-speech-bubbles-2B8C4RC.jpg"
-                    alt="no image found" width="450" height="450">
-                <div class="event-mask">
-                    <div class="row d-flex justify-content-center">
-                        <h2 class="font-weight-bold" style="color:#ff5722;">Tadbir haqida</h2>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col">
-                            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi
-                                voluptate
-                                hic
-                                provident nulla repellat
-                                facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae
-                                debitis
-                                est
-                                sit pariatur.</p>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <a href="{% url 'user_login' %}" class="btn btn-primary mb-3"
-                            style="background-color:#ff5722;">Batafsil</a>
-                    </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="post-entry-big horizontal d-flex mb-4">
+              <a href="news-single.html" class="img-link mr-4"
+                ><img
+                  src="{% static 'images/blog_1.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="post-content">
+                <div class="post-meta">
+                  <a href="#!">June 6, 2019</a>
+                  <span class="mx-1">/</span>
+                  <a href="#!">Admission</a>, <a href="#">Updates</a>
                 </div>
+                <h3 class="post-heading">
+                  <a href="news-single.html"
+                    >Campus Camping and Learning Session</a
+                  >
+                </h3>
+              </div>
             </div>
+
+            <div class="post-entry-big horizontal d-flex mb-4">
+              <a href="news-single.html" class="img-link mr-4"
+                ><img
+                  src="{% static 'images/blog_2.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="post-content">
+                <div class="post-meta">
+                  <a href="#!">June 6, 2019</a>
+                  <span class="mx-1">/</span>
+                  <a href="#!">Admission</a>, <a href="#">Updates</a>
+                </div>
+                <h3 class="post-heading">
+                  <a href="news-single.html"
+                    >Campus Camping and Learning Session</a
+                  >
+                </h3>
+              </div>
+            </div>
+
+            <div class="post-entry-big horizontal d-flex mb-4">
+              <a href="news-single.html" class="img-link mr-4"
+                ><img
+                  src="{% static 'images/blog_1.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+              /></a>
+              <div class="post-content">
+                <div class="post-meta">
+                  <a href="#!">June 6, 2019</a>
+                  <span class="mx-1">/</span>
+                  <a href="#!">Admission</a>, <a href="#">Updates</a>
+                </div>
+                <h3 class="post-heading">
+                  <a href="news-single.html"
+                    >Campus Camping and Learning Session</a
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!-- button to get all activities -->
-        <div class="row d-flex justify-content-center mt-5 mb-3">
-            <a href="{% url 'user_login' %}" class="btn btn-primary mb-4" style="background-color:#ff5722;">Barchasini
-                ko'rish</a>
-        </div>
-    </section>
-    <hr class="my-5" style="color:#ff5722;">
-</main>
-
-
-{%endblock%}
+{% endblock content %}

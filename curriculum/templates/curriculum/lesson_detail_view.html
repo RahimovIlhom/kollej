@@ -5,184 +5,251 @@
 
 {% block title %} {{lessons.name}} {% endblock %}
 
-{% block image_block %}
-<header class="info-header">
-    <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center ">
-        <div class="row d-flex justify-content-center text-center">
-            <div class="col-md-10 text-white">
-                <!-- heading -->
-                <h2 class="display-4 font-weight-bold  p-5 " style="color:#ff5722;">{{lessons.position}} - dars:
-                    {{lessons.name}}</h2>
-                <div class="row d-flex justify-content-center text-center">
-                    <ul class="breadcrumb">
-                        <li><a href="{% url 'index' %}">Bosh sahifa</a></li>
-                        <li><a href="{% url 'curriculum:standard_list' %}">Ta'lim tizimi</a></li>
-                        <li><a
-                                href="{% url 'curriculum:subject_list' slug=lessons.Standard.slug %}">{{lessons.Standard.name}}</a>
-                        </li>
-                        <li><a
-                                href="{% url 'curriculum:lesson_list' standard=lessons.Standard.slug slug=lessons.subject.slug %}">{{lessons.subject.name}}</a>
-                        </li>
-                        <li class="disabled-text">{{lessons.name}}</li>
-                    </ul>
-                </div>
-
-                <!-- divider -->
-                <hr style="color:#ff5722;">
-
-                <!-- description -->
-                <h4 class="white-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Deleniti
-                    consequuntur.</h4>
-            </div>
-</header>
-{% endblock %}
-
 {% block content %}
 
-<section class="text-center">
-    <h2 class="mb-0 mt-5 font-weight-bold" style="color:#ff5722;">Dars ma'lumotlari</h2>
-    <div class="row d-flex justify-content-center mb-3">
-        <blockquote class="blockquote mt-0">
-            <footer class="blockquote-footer">Yaratilgan vaqti: {{lessons.created_at}}<cite title="Source Title">
+{% if user.is_authenticated %}
+
+
+<div class="site-section ftco-subscribe-1 site-blocks-cover pb-4"
+    style="background-image: url('{% static 'images/bg_1.jpg' %}')">
+    <div class="container">
+        <div class="row align-items-end justify-content-center text-center">
+            <div class="col-lg-7">
+                <h2 class="mb-0"><span style="color: aquamarine;">{{lessons.position}} - dars.</span> {{lessons.name}}
+                </h2>
+                <p>{{lessons.Standard}}lar uchun {{lessons.subject.name}} fanidan {{lessons.name}} darsi.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-breadcrumns border-bottom">
+    <div class="container">
+        <a href="{% url 'index' %}">Bosh sahifa</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="{% url 'curriculum:standard_list' %}">Sinflar</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="{% url 'curriculum:subject_list' slug=lessons.Standard.slug %}">{{lessons.Standard}}</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a
+            href="{% url 'curriculum:lesson_list' standard=lessons.Standard.slug slug=lessons.subject.slug %}">{{lessons.subject}}</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">{{lessons.name}}</span>
+    </div>
+</div>
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-9 mb-4">
+                <h2 class="section-title-underline mb-3">
+                    <span>{{lessons.name}}</span>
+                </h2>
+                <p>Yaratilgan vaqti: <span style="color: darkcyan;">{{lessons.created_at}}</span></p>
+                <cite title="Source Title">
                     Muallif:
-                    {{lessons.created_by}}</cite></footer>
-        </blockquote>
-    </div>
-    <!-- video -->
-    <div class="row d-flex justify-content-center mb-3">
-        <div id="player-overlay">
-            {% if lessons.video %}
-            <video controls>
-                <source src="{{lessons.video.url}}" type="video/mp4">
-            </video>
-            {% else %}
-            <h1>Video mavjud emas!</h1>
-            {% endif %}
-        </div>
-    </div>
-    <!-- download cards -->
-    <div class="row d-flex justify-content-center mb-3 mt-3">
-        <!-- download presentations -->
-        <div class="col-md-4 mb-4 mt-4">
-            <div class="card box-shadow-hover">
-                <div class="card-body">
-                    <h5 class="card-title">Taqdimotni yuklash</h5>
-                    {% if lessons.ppt %}
-                    <p class="card-text">Ma'ruzadan taqdimotni yuklash</p>
-                    <a href="{{lessons.ppt.url}}" download>
-                        <button type="button" class="button-les"><span>Fayllarni olish</span></button>
-                    </a>
-                    {% else %}
-                    <p class="card-text">PPT mavjud emas</p>
-                    {% endif %}
+                    <span style="color: darkcyan;">{{lessons.created_by}}</span></cite><br /><br />
 
-                </div>
-            </div>
-        </div>
-        <!-- download notes -->
-        <div class="col-md-4 mb-4 mt-4">
-            <div class="card box-shadow-hover">
-                <div class="card-body">
-                    <h5 class="card-title">Eslatmalarni yuklash</h5>
-                    {% if lessons.Notes %}
-                    <p class="card-text">Ma'ruzadan eslatmalarni yuklab olish</p>
-                    <a href="{{lessons.Notes.url}}" download>
-                        <button type="button" class="button-les"><span>Fallarni olish</span></button>
-                    </a>
-                    {% else %}
-                    <p class="card-text">Eslatmalar mavjud emas</p>
-                    {%endif%}
 
-                </div>
-            </div>
-        </div>
-        <!-- download video -->
-        <div class="col-md-4 mb-4 mt-4">
-            <div class="card box-shadow-hover">
-                <div class="card-body">
-                    <h5 class="card-title">Videoni yuklash</h5>
+                <p class="mb-5">
                     {% if lessons.video %}
-                    <p class="card-text">Videoni ma'ruzadan yuklash</p>
-
-                    <a href="{{lessons.video.url}}" download>
-                        <button type="button" class="button-les"><span>Fayllarni olish</span></button>
-                    </a>
+                    <video controls style="width: 100%;">
+                        <source src="{{lessons.video.url}}" type="video/mp4">
+                    </video>
                     {% else %}
-                    <p class="card-text">Video mavjud emas</p>
-                    {% endif %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                        <path
+                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                        <path
+                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+
+                    </svg>
+                <h3>Video</h3>
+                {% endif %}
+                </p>
+
+
+            </div>
+            <!-- download presentations -->
+            <div class="col-lg-4">
+                <div class="card box-shadow-hover">
+                    <div class="card-body" style="height: 10rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-file-earmark-ppt" viewBox="0 0 16 16">
+                            <path
+                                d="M7 5.5a1 1 0 0 0-1 1V13a.5.5 0 0 0 1 0v-2h1.188a2.75 2.75 0 0 0 0-5.5H7zM8.188 10H7V6.5h1.188a1.75 1.75 0 1 1 0 3.5z" />
+                            <path
+                                d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+                        </svg>
+                        <h5 class="card-title">Taqdimotni yuklash</h5>
+                        {% if lessons.ppt %}
+
+                        <a href="{{lessons.ppt.url}}" download>
+                            <button type="button" class="btn btn-primary px-4 rounded-0"><span>Fayllarni
+                                    olish</span></button>
+                        </a>
+                        {% else %}
+                        <p class="card-text">PPT mavjud emas</p>
+                        {% endif %}
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- update and delete button -->
-    <div class="row d-flex justify-content-center mb-3 mt-3">
-        {% if user.userprofileinfo.user_type == 'teacher' or user.is_superuser %}
-        <div class="col-md-6 mb-3 text-center">
-            <a href="{% url 'curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}"
-                class="btn btn-warning btn-lg mr-4 btn-block">Darsni yangilash</a>
-        </div>
-        <div class="col-md-6">
-            <a href="{% url 'curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}"
-                class="btn btn-danger btn-lg mr-4 btn-block">Darsni o'chirish</a>
-        </div>
-        {% endif %}
-    </div>
-</section>
+            <!-- download notes -->
+            <div class="col-lg-4">
+                <div class="card box-shadow-hover">
+                    <div class="card-body" style="height: 10rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-card-text" viewBox="0 0 16 16">
+                            <path
+                                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                            <path
+                                d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                        <h5 class="card-title">Eslatmalarni yuklash</h5>
 
-<hr class="my-5" style="color:#ff5722;">
+                        {% if lessons.Notes %}
 
-<!-- Comments section -->
-<section>
-    <h2 class="mb-4 mt-5 font-weight-bold" style="color:#ff5722;">Savollar</h2>
-    <h4 class="mt-2 font-weight-bold" style="color:#ff5722;">Izohingizni yoki savolingizni quyida joylashtiring:</h4>
-    <br><br>
-    <div class="container row">
-        <div class="col-md-6">
-            <form method="post">
-                <div class="form-group">
-                    {% csrf_token %}
-                    {{form|crispy}}
-                    <input type="submit" name="form" value="Izoh qo'shish" class="btn btn-primary btn-sm">
+                        <a href="{{lessons.Notes.url}}" download>
+                            <button type="button" class="btn btn-primary px-4 rounded-0"><span>Fallarni
+                                    olish</span></button>
+                        </a>
+                        {% else %}
+                        <p class="card-text">Eslatmalar mavjud emas</p>
+                        {%endif%}
+
+                    </div>
                 </div>
-            </form>
+            </div>
+            <!-- download video -->
+            <div class="col-lg-4">
+                <div class="card box-shadow-hover">
+                    <div class="card-body" style="height: 10rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-film" viewBox="0 0 16 16">
+                            <path
+                                d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z" />
+                        </svg>
+                        <h5 class="card-title">Videoni yuklash</h5>
+                        {% if lessons.video %}
 
-        </div>
-    </div>
-    <div class="row">
-        {% for comment in lessons.comments.all %}
-        <div class="col-md-8 mt-2 mb-2">
-            <div class="media border p-3">
-                <img src="{% static 'Images/user_avatar.png' %}" alt="John Doe" class="mr-3 mt-3 rounded-circle"
-                    style="width:60px;">
-                <div class="media-body">
-                    <h4>{{comment.author}} <small><i>Qo'shilgan {{comment.date_added}}</i></small></h4>
-                    <p>{{comment.body}}</p>
-                    {% for reply in comment.replies.all %}
-                    <div class="media p-3">
-                        <img src="{% static 'Images/user_avatar.png' %}" alt="Jane Doe" class="mr-3 mt-3 rounded-circle"
-                            style="width:45px;">
-                        <div class="media-body">
-                            <h5>{{reply.author}} <small><i>Qo'shilgan {{reply.date_added}}</i></small></h5>
-                            <p>{{reply.reply_body}}</p>
+                        <a href="{{lessons.video.url}}" download>
+                            <button type="button" class="btn btn-primary px-4 rounded-0"><span>Yuklash</span></button>
+                        </a>
+                        {% else %}
+                        <p class="card-text">Video mavjud emas</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if user.userprofileinfo.user_type == 'teacher' or user.is_superuser %}
+            <div class="col-md-6 text-center" style="margin: 2rem 0;">
+                <a href="{% url 'curriculum:lesson_update' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}"
+                    class="btn btn-warning btn-lg mr-4 btn-block rounded-0">Darsni yangilash</a>
+            </div>
+            <div class="col-md-6" style="margin: 2rem 0;">
+                <a href="{% url 'curriculum:lesson_delete' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}"
+                    class="btn btn-danger btn-lg mr-4 btn-block rounded-0">Darsni o'chirish</a>
+            </div>
+            {% endif %}
+
+            <!-- Comments section -->
+            <div class="col-lg-10" style="margin-top: 5rem;">
+                <div class="row mb-5 justify-content-center text-center">
+                    <div class="col">
+                        <h2 class="section-title-underline mb-3">
+                            <span>Savol & Izoh</span>
+                        </h2>
+                        <p>Dars yuzasidan savol va fikrlaringizni ulashing.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <form method="post">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <input type="submit" name="form" value="Izoh qo'shish"
+                                class="btn btn-primary rounded-0 btn-lg">
+                        </div>
+                    </form>
+                </div>
+                <div class="row mb-5 justify-content-center text-center" style="margin-top: 5rem;">
+                    <div class="col">
+                        <h2 class="section-title-underline mb-3">
+                            <span>Muhokama</span>
+                        </h2>
+                        <p>Izohlarga javob berishingiz mumkin.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    {% for comment in lessons.comments.all %}
+                    <div>
+                        <div class=" media border p-3">
+                            {% if comment.author.is_superuser %}
+                            <img src="{% static 'images/admin.png' %}" alt="Jane Doe" class="mr-3 mt-3 rounded-circle"
+                                style="width:3rem;">
+                            {% elif not comment.author.userprofileinfo.profile_pic %}
+                            <img src="{% static 'images/user_avatar.png' %}" alt="Jane Doe"
+                                class="mr-3 mt-3 rounded-circle" style="width:3rem;">
+                            {% else %}
+
+                            <img src="{{comment.author.userprofileinfo.profile_pic.url}}" alt="John Doe"
+                                class="mr-3 mt-3 rounded-circle" style="width:3rem; height: 3rem;">
+
+                            {% endif %}
+
+                            <div class="media-body">
+                                <h4 style="color: cadetblue;">{{comment.author}} <small
+                                        style="color: cadetblue;"><i>Qo'shilgan {{comment.date_added}}</i></small></h4>
+                                <p style="background-color:ghostwhite;">{{comment.body}}</p>
+                                {% for reply in comment.replies.all %}
+                                <div class="media border p-3">
+                                    {% if reply.author.is_superuser %}
+                                    <img src="{% static 'images/admin.png' %}" alt="Jane Doe"
+                                        class="mr-3 mt-3 rounded-circle" style="width:2rem;">
+                                    {% elif not reply.author.userprofileinfo.profile_pic %}
+                                    <img src="{% static 'images/user_avatar.png' %}" alt="Jane Doe"
+                                        class="mr-3 mt-3 rounded-circle" style="width:2rem;">
+                                    {% else %}
+
+                                    <img src="{{reply.author.userprofileinfo.profile_pic.url}}" alt="John Doe"
+                                        class="mr-3 mt-3 rounded-circle" style="width:2rem; height: 2rem;">
+
+                                    {% endif %}
+                                    <div class="media-body">
+                                        <h5 style="color: cadetblue;">{{reply.author}} <small
+                                                style="color: cadetblue;"><i>Qo'shilgan {{reply.date_added}}</i></small>
+                                        </h5>
+                                        <p style="color: blue; background-color: cornsilk;">{{reply.reply_body}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <!-- form to post reply -->
+                                <form method="post">
+                                    <input type="hidden" name="comment.id" value="{{comment.id}}">
+                                    <input type="hidden" name="comment.comm_name" value="{{comment.comm_name}}">
+                                    {% csrf_token %}
+                                    {{form2.as_p}}
+                                    <input type="submit" name="form2" value="Javob berish" class="btn btn-info btn-lg">
+                                </form>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- form to post reply -->
-                    <form method="post">
-                        <input type="hidden" name="comment.id" value="{{comment.id}}">
-                        <input type="hidden" name="comment.comm_name" value="{{comment.comm_name}}">
-                        {% csrf_token %}
-                        {{form2.as_p}}
-                        <input type="submit" name="form2" value="Javob qo'shish" class="btn btn-warning btn-sm">
-                    </form>
                 </div>
             </div>
         </div>
-        {% endfor %}
+
     </div>
+</div>
 
+{% else %}
 
-</section>
+<h1 style="text-align: center;">Tizimga kirmagansiz!</h1>
+
+{% endif %}
 
 {%endblock%}

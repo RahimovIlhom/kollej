@@ -6,13 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from curriculum.views import Standard
-from .models import UserProfileInfo, Contact
-from django.views.generic import CreateView
+from .models import UserProfileInfo
 
 # Create your views here.
 
+def index(req):
+    return HttpResponse('hello world')
+
 
 def register(request):
+
     registered = False
 
     if request.method == "POST":
@@ -36,10 +39,10 @@ def register(request):
         profile_form = UserProfileInfoForm()
 
     return render(request, 'app_users/registration.html',
-                  {'registered': registered,
-                   'user_form': user_form,
-                   'profile_form': profile_form})
-
+                            {'registered':registered,
+                             'user_form':user_form,
+                             'profile_form':profile_form,
+                             'valid':user_form.is_valid()})
 
 def user_login(request):
     if request.method == "POST":
@@ -55,7 +58,7 @@ def user_login(request):
             else:
                 return HttpResponse("ACCOUNT IS DEACTIVATED")
         else:
-            return HttpResponse("Please use correct id and password")
+            return HttpResponse("username yoki parol xato")
             # return HttpResponseRedirect(reverse('register'))
 
     else:
@@ -75,12 +78,16 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         standards = Standard.objects.all()
         teachers = UserProfileInfo.objects.filter(user_type='teacher')
+        user_profiles = UserProfileInfo.objects.all()
         context['standards'] = standards
         context['teachers'] = teachers
+        context['profiles'] = user_profiles
         return context
 
 
-class ContactView(CreateView):
-    model = Contact
-    fields = '__all__'
-    template_name = 'app_users/contact.html'
+def about_school_view(request):
+    return render(request, 'app_users/about_school.html')
+
+
+def about_us_view(request):
+    return render(request, 'app_users/about_us.html')
