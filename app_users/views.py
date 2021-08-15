@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from curriculum.views import Standard
 from curriculum.models import Courses
-from .models import UserProfileInfo, News
+from .models import UserProfileInfo, News, HonoraryTeachers
 
 # Create your views here.
 
@@ -80,6 +80,7 @@ class HomeView(TemplateView):
         standards = Standard.objects.all()
         teachers = UserProfileInfo.objects.filter(user_type='teacher')
         user_profiles = UserProfileInfo.objects.all()
+        hTeachers = HonoraryTeachers.objects.all()
         news = News.objects.all()
         news = list(news)
         news_list = []
@@ -96,6 +97,7 @@ class HomeView(TemplateView):
         context['news'] = news_list
         context['ul_news'] = ul_news
         context['courses'] = courses
+        context['honorary'] = hTeachers
         return context
 
 
