@@ -577,97 +577,74 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <div class="section-heading">
-          <h2 class="text-black">Yangiliklar &amp; Tadbirlar</h2>
+        <div class="col-lg-6 mb-5">
+          <h2 class="section-title-underline mb-3">
+            <span>Yangiliklar</span>
+          </h2>
+          <p>Maktabimiz hayotidagi so'nggi yangiliklar</p>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <div class="post-entry-big">
-              <a href="news-single.html" class="img-link"
-                ><img
-                  src="{% static 'images/blog_large_1.jpg' %}"
+              <a href="{% url 'news' %}" class="img-link"
+                >{% if ul_news.news_pic %}<img
+                  src="{{ul_news.news_pic.url}}"
                   alt="Image"
                   class="img-fluid"
-              /></a>
+                  style="width: 80rem"
+                />{% else %}<img
+                  src="{% static 'images/tadbir.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+                  style="width: 80rem"
+                />{% endif %}</a
+              >
               <div class="post-content">
                 <div class="post-meta">
-                  <a href="#!">June 6, 2019</a>
-                  <span class="mx-1">/</span>
-                  <a href="#!">Admission</a>, <a href="#">Updates</a>
+                  <a href="{% url 'news' %}">{{ul_news.date_added}}</a>
                 </div>
                 <h3 class="post-heading">
-                  <a href="news-single.html"
-                    >Campus Camping and Learning Session</a
-                  >
+                  <a href="{% url 'news' %}">{{ul_news.title}}</a>
                 </h3>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-4">
+            {% for new in news %}
             <div class="post-entry-big horizontal d-flex mb-4">
-              <a href="news-single.html" class="img-link mr-4"
-                ><img
-                  src="{% static 'images/blog_1.jpg' %}"
+              <a href="{% url 'news' %}" class="img-link mr-4"
+                >{% if not news.news_pic %}<img
+                  src="{{new.news_pic.url}}"
                   alt="Image"
                   class="img-fluid"
-              /></a>
+                />{% else %}<img
+                  src="{% static 'images/tadbir.jpg' %}"
+                  alt="Image"
+                  class="img-fluid"
+                />{% endif %}</a
+              >
               <div class="post-content">
                 <div class="post-meta">
-                  <a href="#!">June 6, 2019</a>
-                  <span class="mx-1">/</span>
-                  <a href="#!">Admission</a>, <a href="#">Updates</a>
+                  <a href="{% url 'news' %}">{{new.date_added}}</a>
                 </div>
                 <h3 class="post-heading">
-                  <a href="news-single.html"
-                    >Campus Camping and Learning Session</a
-                  >
+                  <a href="{% url 'news' %}">{{new.title}}</a>
                 </h3>
               </div>
             </div>
 
-            <div class="post-entry-big horizontal d-flex mb-4">
-              <a href="news-single.html" class="img-link mr-4"
-                ><img
-                  src="{% static 'images/blog_2.jpg' %}"
-                  alt="Image"
-                  class="img-fluid"
-              /></a>
-              <div class="post-content">
-                <div class="post-meta">
-                  <a href="#!">June 6, 2019</a>
-                  <span class="mx-1">/</span>
-                  <a href="#!">Admission</a>, <a href="#">Updates</a>
-                </div>
-                <h3 class="post-heading">
-                  <a href="news-single.html"
-                    >Campus Camping and Learning Session</a
-                  >
-                </h3>
-              </div>
-            </div>
-
-            <div class="post-entry-big horizontal d-flex mb-4">
-              <a href="news-single.html" class="img-link mr-4"
-                ><img
-                  src="{% static 'images/blog_1.jpg' %}"
-                  alt="Image"
-                  class="img-fluid"
-              /></a>
-              <div class="post-content">
-                <div class="post-meta">
-                  <a href="#!">June 6, 2019</a>
-                  <span class="mx-1">/</span>
-                  <a href="#!">Admission</a>, <a href="#">Updates</a>
-                </div>
-                <h3 class="post-heading">
-                  <a href="news-single.html"
-                    >Campus Camping and Learning Session</a
-                  >
-                </h3>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row" style="text-align: center; margin-top: 2rem">
+      <div class="col-12">
+        <a href="{% url 'news' %}"
+          ><button type="button" class="btn btn-primary px-4 rounded-0 btn-lg">
+            Barchasini ko'rish
+          </button>
+        </a>
       </div>
     </div>
   </div>

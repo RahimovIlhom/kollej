@@ -33,3 +33,24 @@ class UserProfileInfo(models.Model):
     def __str__(self):
         return self.user.username
 
+def path_and_rename_news(instance, filename):
+    upload_to = 'Images/'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = 'News/{}.{}'.format(instance.pk, ext)
+    return os.path.join(upload_to, filename)
+
+
+class News(models.Model):
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+    title = models.TextField(max_length=50, unique=True)
+    body = models.TextField(max_length=500)
+    news_pic = models.ImageField(upload_to=path_and_rename_news, verbose_name="Profile Picture", blank=True)
+
+    class Meta:
+        ordering = ['-date_added']
+    
+    def __str__(self):
+        return self.title

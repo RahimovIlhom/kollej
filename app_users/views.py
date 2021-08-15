@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from curriculum.views import Standard
-from .models import UserProfileInfo
+from .models import UserProfileInfo, News
 
 # Create your views here.
 
@@ -79,9 +79,19 @@ class HomeView(TemplateView):
         standards = Standard.objects.all()
         teachers = UserProfileInfo.objects.filter(user_type='teacher')
         user_profiles = UserProfileInfo.objects.all()
+        news = News.objects.all()
+        news = list(news)
+        news_list = []
+        news_list.append(news[1])
+        news_list.append(news[2])
+        news_list.append(news[3])
+        news_list.append(news[4])
+        ul_news = news[0]
         context['standards'] = standards
         context['teachers'] = teachers
         context['profiles'] = user_profiles
+        context['news'] = news_list
+        context['ul_news'] = ul_news
         return context
 
 
@@ -91,3 +101,7 @@ def about_school_view(request):
 
 def about_us_view(request):
     return render(request, 'app_users/about_us.html')
+
+def news_view(request):
+    news = News.objects.all()
+    return render(request, 'app_users/news.html', {'news': news})

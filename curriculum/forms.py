@@ -5,7 +5,7 @@ from .models import Lesson, Reply, Comment
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
-        fields = ('lesson_id', 'name', 'position', 'video', 'ppt', 'Notes')
+        fields = ('name', 'position', 'video', 'ppt', 'Notes')
 
 
 class CommentForm(forms.ModelForm):
