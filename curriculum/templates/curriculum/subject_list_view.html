@@ -58,12 +58,12 @@
               {% if subject.image %}
 
               <img src="{{subject.image.url|default_if_none:'#'}}" alt="Image" class="img-fluid"
-                style="height: 15rem; background-size: cover;">
+                style="height: 15rem; background-size: cover; object-fit: cover;">
 
 
               {% else %}
               <img src="{% static 'images/subject.jpg' %}" alt="Image" class="img-fluid"
-                style="height: 15rem; background-size: cover;" /></a>
+                style="height: 15rem; background-size: cover; object-fit: cover;" /></a>
 
             {% endif %}
             <div class="category">

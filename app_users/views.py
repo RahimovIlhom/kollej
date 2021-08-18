@@ -1,13 +1,17 @@
-from django.shortcuts import render
-from .forms import UserForm, UserProfileInfoForm
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from .forms import UserForm, UserProfileInfoForm, ProfileUpdateForm, UserUpdateForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.views.generic import TemplateView
 from curriculum.views import Standard
 from curriculum.models import Courses
 from .models import UserProfileInfo, News, HonoraryTeachers
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -102,7 +106,8 @@ class HomeView(TemplateView):
 
 
 def about_school_view(request):
-    return render(request, 'app_users/about_school.html')
+    teachers = HonoraryTeachers.objects.all()
+    return render(request, 'app_users/about_school.html', {'teachers': teachers})
 
 
 def about_us_view(request):
@@ -111,3 +116,41 @@ def about_us_view(request):
 def news_view(request):
     news = News.objects.all()
     return render(request, 'app_users/news.html', {'news': news})
+
+
+def profile(request):
+    return render(request, 'app_users/profile.html')
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            
+            return HttpResponse("<h1>Parol o'zgardi!</h1>")
+        else:
+            messages.error(request, "Parollarni to'g'ri kiriting.")
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'app_users/change_password.html', {
+        'form': form
+    })
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.userprofileinfo)
+        u_form = UserUpdateForm(request.POST,instance=request.user)
+        if p_form.is_valid() and u_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request,'Yangilandi!')
+            return redirect('edit_profile')
+    else:
+        p_form = ProfileUpdateForm(instance=request.user.userprofileinfo)
+        u_form = UserUpdateForm(instance=request.user)
+
+    context={'p_form': p_form, 'u_form': u_form}
+    return render(request, 'app_users/edit_profile.html',context )

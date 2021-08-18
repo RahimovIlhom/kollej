@@ -202,8 +202,8 @@
                             {% endif %}
 
                             <div class="media-body">
-                                <h4 style="color: cadetblue;">{{comment.author}} <small
-                                        style="color: cadetblue;"><i>Qo'shilgan {{comment.date_added}}</i></small></h4>
+                                <h7 style="color: cadetblue;">{{comment.author.first_name}} {{comment.author.last_name}}<small
+                                        style="color: cadetblue;"><i> {{comment.date_added}}</i></small></h7>
                                 <p style="background-color:ghostwhite;">{{comment.body}}</p>
                                 {% for reply in comment.replies.all %}
                                 <div class="media border p-3">
@@ -220,9 +220,9 @@
 
                                     {% endif %}
                                     <div class="media-body">
-                                        <h5 style="color: cadetblue;">{{reply.author}} <small
-                                                style="color: cadetblue;"><i>Qo'shilgan {{reply.date_added}}</i></small>
-                                        </h5>
+                                        <h8 style="color: cadetblue;">{{reply.author.first_name}} {{reply.author.last_name}} <small
+                                                style="color: cadetblue;"><i> {{reply.date_added}}</i></small>
+                                        </h8>
                                         <p style="color: blue; background-color: cornsilk;">{{reply.reply_body}}</p>
                                     </div>
                                 </div>

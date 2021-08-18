@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% load static %} Bosh sahifa{% block content %}
+{% extends 'base.html' %} {% block title %}Bosh sahifa{% endblock title %}
+{%load static %} {% block content %}
 
 <!--index-->
 <div class="hero-slide owl-carousel site-blocks-cover">
@@ -175,12 +176,17 @@
                   class="img-fluid"
                   style="height: 13rem"
               /></a>
-              <div class="category"><h3>{{course.title}}</h3></div>
+              <div class="category">
+                <h3>{{course.title}}</h3>
+              </div>
             </figure>
             <div class="course-1-content pb-4">
               <p class="desc mb-4">{{course.description}}</p>
               <p>
-                <a href="#!" class="btn btn-primary rounded-0 px-4"
+                <a
+                  href="#!"
+                  class="btn btn-primary rounded-0 px-4"
+                  onclick="kurs()"
                   >A'zo bo'lish</a
                 >
               </p>
@@ -241,7 +247,16 @@
       {% for teacher in honorary %}
       <div class="ftco-testimonial-1">
         <div class="ftco-testimonial-vcard d-flex align-items-center mb-4">
+          {% if teacher.image %}
           <img src="{{teacher.image.url}}" alt="Image" class="img-fluid mr-3" />
+          {% else %}
+          <img
+            src="{% static 'images/user_avatar.png' %}"
+            alt="Image"
+            class="img-fluid mr-3"
+          />
+
+          {% endif %}
           <div>
             <h3>{{teacher.name}}</h3>
             <span>{{teacher.science}}</span>
@@ -333,7 +348,7 @@
             {% for new in news %}
             <div class="post-entry-big horizontal d-flex mb-4">
               <a href="{% url 'news' %}" class="img-link mr-4"
-                >{% if not news.news_pic %}<img
+                >{% if new.news_pic %}<img
                   src="{{new.news_pic.url}}"
                   alt="Image"
                   class="img-fluid"

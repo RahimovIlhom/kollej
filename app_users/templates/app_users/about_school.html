@@ -115,74 +115,31 @@
         <div class="row mb-5 justify-content-center text-center">
           <div class="col-lg-4 mb-5">
             <h2 class="section-title-underline mb-5">
-              <span>Bizning faxriy o'qtuvchilarimiz</span>
+              <span>Bizning faxriy o'qituvchilarimiz</span>
             </h2>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center text-center">
+        {% for teacher in teachers %}
           <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
 
             <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid">
+            {% if teacher.image %}
+                <img src="{{teacher.image.url}}" alt="Image" class="img-fluid">
+                {% else %}
+                <img src="{% static 'images/user_avatar.png' %}" alt="Image" class="img-fluid">
+                {% endif %}
               <div class="feature-1-content">
-                <h2>Craig Daniel</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
+                <h2>{{teacher.name}}</h2>
+                <span class="position mb-3 d-block">{{teacher.science}}</span>    
+                <p>{{teacher.about}}</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
-            <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid">
-              <div class="feature-1-content">
-                <h2>Taylor Simpson</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
-            <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid">
-              <div class="feature-1-content">
-                <h2>Jonas Tabble</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
-
-            <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_4.jpg' %}" alt="Image" class="img-fluid">
-              <div class="feature-1-content">
-                <h2>Craig Daniel</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
-            <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_2.jpg' %}" alt="Image" class="img-fluid">
-              <div class="feature-1-content">
-                <h2>Taylor Simpson</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-5">
-            <div class="feature-1 border person text-center">
-                <img src="{% static 'images/person_3.jpg' %}" alt="Image" class="img-fluid">
-              <div class="feature-1-content">
-                <h2>Jonas Tabble</h2>
-                <span class="position mb-3 d-block">Math Teacher</span>    
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
+          
+    
+          
         </div>
       </div>
     </div>

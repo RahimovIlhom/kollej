@@ -25,6 +25,8 @@
   <link href="{% static 'css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css" />
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/my.css' %}" />
+  
   <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -56,7 +58,7 @@
               </span> Admin</a>
             <a href="{% url 'user_logout' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Chiqish</a>
             {% elif user.is_authenticated %}
-            <a href="{% url 'admin:index' %}" class="small mr-3"><span class="icon-person">
+            <a href="{% url 'profile' %}" class="small mr-3"><span class="icon-person">
               </span> {{user.first_name}} {{user.last_name}}</a>
             <a href="{% url 'user_logout' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Chiqish</a>
             {% else %}
@@ -81,7 +83,7 @@
           <div class="mr-auto">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li class="active">
+                <li>
                   <a href="{% url 'index' %}" class="nav-link text-left">Bosh sahifa</a>
                 </li>
                 <li>
@@ -105,14 +107,27 @@
             <div class="social-wrap">
               <a href="#"><span class="icon-facebook" title='facebook'></span></a>
               <a href="#"><span class="icon-telegram" title='telegram'></span></a>
-
+{% comment %} 
               <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
-                  class="icon-menu h3"></span></a>
+                  class="icon-menu h3"></span></a> {% endcomment %}
+              <a href="#" class="d-inline-block d-lg-none site-menu-toggle"><span onclick="openNav1()"
+              class="icon-menu h3"></span></a>
             </div>
           </div>
 
         </div>
       </div>
+
+      <div id="myNav1" class="overlay1">
+          <a href="javascript:void(0)" class="closebtn1" onclick="closeNav1()" >&times;</a>
+          <div class="overlay-content1">
+            <a href="{% url 'index' %}" >Bosh sahifa</a>
+              <a href="{% url 'curriculum:standard_list' %}" >Ta'lim</a>
+              <a href="{% url 'news' %}" >Yangiliklar</a>
+              <a href="{% url 'about_school' %}" >Maktabimiz haqida</a>
+              <a href="{% url 'about_us' %}" >Biz haqimizda</a>
+          </div>
+      </div> 
 
     </header>
 
@@ -122,7 +137,7 @@
     <div class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-6">
             <p class="mb-4">
               <img src="{% static 'images/logo4.jpg' %}" alt="Image" class="img-fluid" />
             </p>
@@ -139,22 +154,12 @@
               <li>
                 <a href="{% url 'curriculum:standard_list' %}">Ta'lim</a>
               </li>
-              <li><a href="#news-updates">Yangiliklar</a></li>
-              <li><a href="#about_school">Maktabimiz haqida</a></li>
+              <li><a href="{% url 'news' %}">Yangiliklar</a></li>
+              <li><a href="{% url 'about_school' %}">Maktabimiz haqida</a></li>
               <li><a href="{% url 'about_us' %}">Biz haqimizda</a></li>
             </ul>
           </div>
-          <div class="col-lg-3">
-            <h3 class="footer-heading"><span>To'garaklarimiz</span></h3>
-            <ul class="list-unstyled">
-              <li><a href="#courses">Math</a></li>
-              <li><a href="#courses">Science &amp; Engineering</a></li>
-              <li><a href="#courses">Arts &amp; Humanities</a></li>
-              <li><a href="#courses">Economics &amp; Finance</a></li>
-              <li><a href="#courses">Business Administration</a></li>
-              <li><a href="#courses">Computer Science</a></li>
-            </ul>
-          </div>
+         
           <div class="col-lg-3">
             <h3 class="footer-heading"><span>Murojaat uchun</span></h3>
             <ul class="list-unstyled">
@@ -168,15 +173,7 @@
             </ul>
           </div>
         </div>
-        {% for profile in profiles %}
-
-        {% if True %}
-
-        <a href="#"><span>{{profile.user_id}} user id {{user.id}}</span></a>
-
-        {% endif %}
-
-        {% endfor %}
+       
         <div class="row">
           <div class="col-12">
             <div class="copyright">
@@ -224,6 +221,7 @@
   <script src="{% static 'js/jquery.mb.YTPlayer.min.js' %}"></script>
 
   <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/my.js' %}"></script>
 </body>
 
 </html>
