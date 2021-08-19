@@ -174,8 +174,9 @@
                   src="{{course.image.url}}"
                   alt="Image"
                   class="img-fluid"
-                  style="height: 13rem"
-              /></a>
+                  style="height: 13rem; width: 100%; object-fit: cover"
+                />
+              </a>
               <div class="category">
                 <h3>{{course.title}}</h3>
               </div>
@@ -326,12 +327,12 @@
                   src="{{ul_news.news_pic.url}}"
                   alt="Image"
                   class="img-fluid"
-                  style="width: 80rem"
+                  style="width: 45rem; height: 25.3rem; object-fit: cover"
                 />{% else %}<img
                   src="{% static 'images/tadbir.jpg' %}"
                   alt="Image"
                   class="img-fluid"
-                  style="width: 80rem"
+                  style="width: 45rem; height: 25.3rem; object-fit: cover"
                 />{% endif %}</a
               >
               <div class="post-content">
@@ -351,11 +352,11 @@
                 >{% if new.news_pic %}<img
                   src="{{new.news_pic.url}}"
                   alt="Image"
-                  class="img-fluid"
+                  style="width: 6.5rem; height: 3.77rem; object-fit: cover"
                 />{% else %}<img
                   src="{% static 'images/tadbir.jpg' %}"
                   alt="Image"
-                  class="img-fluid"
+                  style="width: 6.5rem; height: 3.77rem; object-fit: cover"
                 />{% endif %}</a
               >
               <div class="post-content">

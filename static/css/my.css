@@ -16,13 +16,13 @@
   top: 25%;
   width: 100%;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .overlay1 a {
   padding: 8px;
   text-decoration: none;
-  font-size: 36px;
+  font-size: 1.5rem;
   color: black;
   display: block;
   transition: 0.3s;
@@ -37,15 +37,15 @@
   position: absolute;
   top: 20px;
   right: 45px;
-  font-size: 60px;
+  font-size: 2rem;
 }
 
 @media screen and (max-height: 450px) {
   .overlay1 a {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
   .overlay1 .closebtn1 {
-    font-size: 40px;
+    font-size: 2rem;
     top: 15px;
     right: 35px;
   }

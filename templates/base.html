@@ -87,13 +87,16 @@
                   <a href="{% url 'index' %}" class="nav-link text-left">Bosh sahifa</a>
                 </li>
                 <li>
+                  <a href="{% url 'profile' %}" class="nav-link text-left">Profilim</a>
+                </li>
+                <li>
                   <a href="{% url 'curriculum:standard_list' %}" class="nav-link text-left">Ta'lim</a>
                 </li>
                 <li>
                   <a href="{% url 'news' %}" class="nav-link text-left">Yangiliklar</a>
                 </li>
                 <li>
-                  <a href="{% url 'about_school' %}" class="nav-link text-left">Maktabimiz haqida</a>
+                  <a href="{% url 'about_school' %}" class="nav-link text-left">Maktab haqida</a>
                 </li>
                 <li>
                   <a href="{% url 'about_us' %}" class="nav-link text-left">Biz haqimizda</a>
@@ -122,6 +125,7 @@
           <a href="javascript:void(0)" class="closebtn1" onclick="closeNav1()" >&times;</a>
           <div class="overlay-content1">
             <a href="{% url 'index' %}" >Bosh sahifa</a>
+            <a href="{% url 'profile' %}" >Profilim</a>
               <a href="{% url 'curriculum:standard_list' %}" >Ta'lim</a>
               <a href="{% url 'news' %}" >Yangiliklar</a>
               <a href="{% url 'about_school' %}" >Maktabimiz haqida</a>
@@ -150,7 +154,7 @@
           <div class="col-lg-3">
             <h3 class="footer-heading"><span>Sayt xaritasi</span></h3>
             <ul class="list-unstyled">
-              <li><a href="#">Bosh sahifa</a></li>
+              <li><a href="{% url 'index' %}">Bosh sahifa</a></li>
               <li>
                 <a href="{% url 'curriculum:standard_list' %}">Ta'lim</a>
               </li>

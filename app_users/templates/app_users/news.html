@@ -30,12 +30,9 @@
         <h4 class="section-title-underline mb-5"><span>{{new.title}}</span></h4>
         <p>Qo'shilgan: {{new.date_added}}</p>
         <p class="mb-5">
-          {% if new.news_pic %}<img
-            src="{{new.news_pic.url}}"
-            alt="Image"
-            class="img-fluid"
-            style="width: 100%"
-          />{% else %}<img
+          {% if new.news_pic %}
+          <img src="{{new.news_pic.url}}" alt="Image" style="width: 100%" />
+          {% else %}<img
             src="{% static 'images/tadbir.jpg' %}"
             alt="Image"
             class="img-fluid"
