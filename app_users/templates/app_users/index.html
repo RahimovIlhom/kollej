@@ -322,6 +322,7 @@
         <div class="row">
           <div class="col-lg-8">
             <div class="post-entry-big">
+              {% if ul_news %}
               <a href="{% url 'news' %}" class="img-link"
                 >{% if ul_news.news_pic %}<img
                   src="{{ul_news.news_pic.url}}"
@@ -343,10 +344,13 @@
                   <a href="{% url 'news' %}">{{ul_news.title}}</a>
                 </h3>
               </div>
+              {% else %}
+              <h4 style="text-align: center">Yangiliklar hozircha yo'q</h4>
+              {% endif %}
             </div>
           </div>
           <div class="col-lg-4">
-            {% for new in news %}
+            {% if news %} {% for new in news %}
             <div class="post-entry-big horizontal d-flex mb-4">
               <a href="{% url 'news' %}" class="img-link mr-4"
                 >{% if new.news_pic %}<img
@@ -369,7 +373,7 @@
               </div>
             </div>
 
-            {% endfor %}
+            {% endfor %} {% endif %}
           </div>
         </div>
       </div>
