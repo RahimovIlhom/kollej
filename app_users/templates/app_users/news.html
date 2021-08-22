@@ -24,7 +24,13 @@
 
 <div class="site-section">
   <div class="container">
-    {% for new in news %}
+    {% if not news %}
+    <div class="row justify-content-center">
+      <div class="col-md-9 mb-4">
+        <h1 style="text-align: center">Yangiliklar hozircha yo'q</h1>
+      </div>
+    </div>
+    {% else %} {% for new in news %}
     <div class="row justify-content-center">
       <div class="col-md-9 mb-4">
         <h4 class="section-title-underline mb-5"><span>{{new.title}}</span></h4>
@@ -42,7 +48,7 @@
         <p>{{new.body}}</p>
       </div>
     </div>
-    {% endfor %}
+    {% endfor %} {% endif %}
   </div>
 </div>
 

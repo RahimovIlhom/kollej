@@ -152,6 +152,8 @@
   </div>
 </div>
 
+{% if courses %}
+
 <div class="site-section" id="courses">
   <div class="container">
     <div class="row mb-5 justify-content-center text-center">
@@ -199,6 +201,7 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 <div
   id="about_school"
@@ -234,6 +237,7 @@
 </div>
 
 <!-- // 05 - Block -->
+{% if honorary %}
 <div class="site-section">
   <div class="container">
     <div class="row mb-5">
@@ -271,7 +275,7 @@
     </div>
   </div>
 </div>
-
+{% endif %}
 <div
   class="section-bg style-1"
   style="background-image: url('{% static 'images/hero_2.jpg' %}')"
@@ -380,11 +384,13 @@
     </div>
     <div class="row" style="text-align: center; margin-top: 2rem">
       <div class="col-12">
+        {% if ul_news %}
         <a href="{% url 'news' %}"
           ><button type="button" class="btn btn-primary px-4 rounded-0 btn-lg">
             Barchasini ko'rish
           </button>
         </a>
+        {% endif %}
       </div>
     </div>
   </div>

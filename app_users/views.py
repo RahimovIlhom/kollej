@@ -88,19 +88,21 @@ class HomeView(TemplateView):
         news = News.objects.all()
         news = list(news)
         news_list = []
-        k = 0
-        if not news:
-            for i in range(1,len(news) + 1):
-                if not news[i] or k == 4:
-                    break
-                else:
-                    news_list.append(news[i])
-                    k += 1
 
-        
         ul_news = False
         if news:
             ul_news = news[0]
+            news.remove(news[0])
+
+            if len(news) > 0:
+                k = 0
+                for i in range(len(news)):
+                    if k == 4:
+                        break
+                    else:
+                        news_list.append(news[i])
+                        k += 1
+
 
         courses = Courses.objects.all()
 
