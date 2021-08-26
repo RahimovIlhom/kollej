@@ -31,7 +31,7 @@
         {% if not user.is_authenticated %}
         <h1 align="center">Tizimga kirmagansiz!</h1>
 
-        {% elif %} {% if user.is_superuser %}
+        {% elif user.is_superuser %}
         <h1 align="center">Bu sahifa admin uchun emas!</h1>
         {% else %} {% for message in messages %}
 
