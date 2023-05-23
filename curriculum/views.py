@@ -60,32 +60,25 @@ class LessonDetailView(DetailView, FormView):
             form_name = 'form2'
 
         form = self.get_form(form_class)
-        # print("the form name is : ", form)
-        # print("form name: ", form_name)
-        # print("form_class:",form_class)
 
-        if form_name == 'form' and form.is_valid():
+        if form.is_valid():
             comment = form.save(commit=False)
-            body = comment.body
+            body = comment.body if form_name == 'form' else comment.reply_body
             typeComment = checkText(body.lower())['label']
             comment.type = typeComment
-            # if typeComment == 'negative':
-            #     field = checkNegComment(body.lower())['label']
-            #     comment.field = field
+            if typeComment == 'negative':
+                field = checkNegComment(body.lower())['label']
+                comment.field = field
             # comment.save()
-            print("comment form is returned")
-            return self.form_valid(form)
-        elif form_name == 'form2' and form.is_valid():
-            comment = form.save(commit=False)
-            body = comment.reply_body
-            typeComment = checkText(body.lower())['label']
-            comment.type = typeComment
-            # if typeComment == 'negative':
-            #     field = checkNegComment(body.lower())['label']
-            #     comment.field = field
-            # comment.save()
-            print("reply form is returned")
-            return self.form2_valid(form)
+
+            if form_name == 'form':
+                print("comment form is returned")
+                return self.form_valid(form)
+            elif form_name == 'form2':
+                print("reply form is returned")
+                return self.form2_valid(form)
+
+        return self.form_invalid(form)
 
     def get_success_url(self):
         self.object = self.get_object()
