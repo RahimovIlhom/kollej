@@ -69,9 +69,9 @@ class LessonDetailView(DetailView, FormView):
             body = comment.body
             typeComment = checkText(body.lower())['label']
             comment.type = typeComment
-            if typeComment == 'negative':
-                field = checkNegComment(body.lower())['label']
-                comment.field = field
+            # if typeComment == 'negative':
+            #     field = checkNegComment(body.lower())['label']
+            #     comment.field = field
             # comment.save()
             print("comment form is returned")
             return self.form_valid(form)
@@ -80,9 +80,9 @@ class LessonDetailView(DetailView, FormView):
             body = comment.reply_body
             typeComment = checkText(body.lower())['label']
             comment.type = typeComment
-            if typeComment == 'negative':
-                field = checkNegComment(body.lower())['label']
-                comment.field = field
+            # if typeComment == 'negative':
+            #     field = checkNegComment(body.lower())['label']
+            #     comment.field = field
             # comment.save()
             print("reply form is returned")
             return self.form2_valid(form)
