@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-e(!4=lr^x1see836hrfyl_$ix4z1%f+cyn$h1)^v)4syt7t##w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['YangiobodtumanKHM.pythonanywhere.com', '127.0.0.1', 'localhost:8000']
+ALLOWED_HOSTS = ['YangiobodtumanKHM.pythonanywhere.com', '127.0.0.1', 'localhost:8000', 'khm.up.railway.app']
 
 
 # Application definition
