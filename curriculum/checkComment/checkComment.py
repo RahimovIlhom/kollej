@@ -7,9 +7,9 @@ from sklearn.linear_model import LogisticRegression
 
 additions = ['lar', 'gacha', 'tacha', 'siz', 'sizlar', 'gan', 'dagi', 'ning', 'ni',
              'ga', 'da', 'dan', 'cha', 'oq', 'dek', 'la', 'qa', 'ta', 'chi', 'li', 'si',
-             'ki', 'gi', 'ti', "g'i", 'i', 'im', 'lar']
+             'ki', 'ku', 'gi', 'ti', "g'i", 'i', 'im', 'lar']
 
-file_path = os.path.join(os.getcwd(), 'comment', 'checkComment', 'negPosWords.csv')
+file_path = os.path.join(os.getcwd(), 'curriculum', 'checkComment', 'negPosWords.csv')
 
 
 def checkText(text: str, dataFile: str = file_path) -> dict:

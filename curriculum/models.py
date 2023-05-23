@@ -89,6 +89,8 @@ class Comment(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
     date_added = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    field = models.CharField(max_length=100, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.comm_name = slugify("comment by" + "-" + str(self.author) + str(self.date_added))
@@ -106,6 +108,8 @@ class Reply(models.Model):
     reply_body = models.TextField(max_length=500)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=100, null=True, blank=True)
+    field = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return "reply to " + str(self.comment_name.comm_name)

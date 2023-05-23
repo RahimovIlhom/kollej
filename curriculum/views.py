@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from app_users.models import UserProfileInfo
+from .checkComment.checkComment import checkText
+from .checkComment.classificationText import checkNegComment
 
 
 class StandardListView(ListView):
@@ -63,9 +65,25 @@ class LessonDetailView(DetailView, FormView):
         # print("form_class:",form_class)
 
         if form_name == 'form' and form.is_valid():
+            comment = form.save(commit=False)
+            body = comment.body
+            typeComment = checkText(body.lower())['label']
+            comment.type = typeComment
+            if typeComment == 'negative':
+                field = checkNegComment(body.lower())['label']
+                comment.field = field
+            # comment.save()
             print("comment form is returned")
             return self.form_valid(form)
         elif form_name == 'form2' and form.is_valid():
+            comment = form.save(commit=False)
+            body = comment.reply_body
+            typeComment = checkText(body.lower())['label']
+            comment.type = typeComment
+            if typeComment == 'negative':
+                field = checkNegComment(body.lower())['label']
+                comment.field = field
+            # comment.save()
             print("reply form is returned")
             return self.form2_valid(form)
 
@@ -98,7 +116,7 @@ class LessonDetailView(DetailView, FormView):
 class LessonCreateView(CreateView):
     # fields = ('lesson_id','name','position','image','video','ppt','Notes')
     form_class = LessonForm
-    context_object_name = 'subject'
+    context_object_name = 'Fanlar'
     model = Subject
     template_name = 'curriculum/lesson_create.html'
 
