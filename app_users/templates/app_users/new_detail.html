@@ -18,7 +18,9 @@
   <div class="container">
     <a href="{% url 'index' %}">Bosh sahifa</a>
     <span class="mx-3 icon-keyboard_arrow_right"></span>
-    <span class="current">Yangiliklar</span>
+    <a href="{% url 'news' %}">Yangiliklar</a>
+    <span class="mx-3 icon-keyboard_arrow_right"></span>
+    <span class="current">{{ object.title }}</span>
   </div>
 </div>
 
@@ -27,18 +29,18 @@
     {% if not news %}
     <div class="row justify-content-center">
       <div class="col-md-9 mb-4">
-        <h1 style="text-align: center">Yangiliklar hozircha yo'q</h1>
+        <h1 style="text-align: center">Bu yangilikda hozircha xatolik mavjud</h1>
       </div>
     </div>
-    {% else %} {% for new in news %}
+    {% else %}
     <div class="row justify-content-center">
       <div class="col-md-9 mb-4">
-        <h4 class="section-title-underline mb-5"><span><a href="{% url 'new_detail' new.pk  %}"> {{new.title}}</a>
+        <h4 class="section-title-underline mb-5"><span><a href=""> {{object.title}}</a>
           </span></h4>
-        <p>Qo'shilgan: {{new.date_added}}</p>
+        <p>Qo'shilgan: {{object.date_added}}</p>
         <p class="mb-5">
-          {% if new.news_pic %}
-          <img src="{{ new.news_pic.url }}" alt="Image" style="width: 100%" />
+          {% if object.news_pic %}
+          <img src="{{ object.news_pic.url }}" alt="Image" style="width: 100%" />
           {% else %}<img
             src="{% static 'images/tadbir.jpg' %}"
             alt="Image"
@@ -47,10 +49,10 @@
           />{% endif %}
 
         </p>
-        <p>{{new.body}}</p>
+        <p>{{object.body}}</p>
       </div>
     </div>
-    {% endfor %} {% endif %}
+    {% endif %}
   </div>
 </div>
 

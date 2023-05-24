@@ -1,16 +1,21 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from curriculum.checkComment.checkComment import checkText
+from curriculum.checkComment.classificationText import checkNegComment
+from curriculum.forms import CommentForm, ReplyForm
 from .forms import UserForm, UserProfileInfoForm, ProfileUpdateForm, UserUpdateForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from curriculum.views import Standard
 from curriculum.models import Courses
 from .models import UserProfileInfo, News, HonoraryTeachers
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
+from django.views.generic import ListView, DetailView
 
 
 # Create your views here.
@@ -20,7 +25,6 @@ def index(req):
 
 
 def register(request):
-
     registered = False
 
     if request.method == "POST":
@@ -44,10 +48,11 @@ def register(request):
         profile_form = UserProfileInfoForm()
 
     return render(request, 'app_users/registration.html',
-                            {'registered':registered,
-                             'user_form':user_form,
-                             'profile_form':profile_form,
-                             'valid':user_form.is_valid()})
+                  {'registered': registered,
+                   'user_form': user_form,
+                   'profile_form': profile_form,
+                   'valid': user_form.is_valid()})
+
 
 def user_login(request):
     if request.method == "POST":
@@ -103,7 +108,6 @@ class HomeView(TemplateView):
                         news_list.append(news[i])
                         k += 1
 
-
         courses = Courses.objects.all()
 
         context['standards'] = standards
@@ -124,9 +128,47 @@ def about_school_view(request):
 def about_us_view(request):
     return render(request, 'app_users/about_us.html')
 
+
 def news_view(request):
     news = News.objects.all()
     return render(request, 'app_users/news.html', {'news': news})
+
+
+class NewDetailView(DetailView, FormView):
+    model = News
+    template_name = 'app_users/new_detail.html'
+    form_class = CommentForm
+    second_form_class = ReplyForm
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if 'form' in request.POST:
+            form_class = self.get_form_class()
+            form_name = 'form'
+        else:
+            form_class = self.second_form_class
+            form_name = 'form2'
+
+        form = self.get_form(form_class)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            body = comment.body if form_name == 'form' else comment.reply_body
+            typeComment = checkText(body.lower())['label']
+            comment.type = typeComment
+            if typeComment == 'negative':
+                field = checkNegComment(body.lower())['label']
+                comment.field = field
+            # comment.save()
+
+            if form_name == 'form':
+                print("comment form is returned")
+                return self.form_valid(form)
+            elif form_name == 'form2':
+                print("reply form is returned")
+                return self.form2_valid(form)
+
+        return self.form_invalid(form)
 
 
 def profile(request):
@@ -139,7 +181,7 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            
+
             return HttpResponse("<h1>Parol o'zgardi!</h1>")
         else:
             messages.error(request, "Parollarni to'g'ri kiriting.")
@@ -149,19 +191,20 @@ def change_password(request):
         'form': form
     })
 
+
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.userprofileinfo)
-        u_form = UserUpdateForm(request.POST,instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofileinfo)
+        u_form = UserUpdateForm(request.POST, instance=request.user)
         if p_form.is_valid() and u_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request,'Yangilandi!')
+            messages.success(request, 'Yangilandi!')
             return redirect('edit_profile')
     else:
         p_form = ProfileUpdateForm(instance=request.user.userprofileinfo)
         u_form = UserUpdateForm(instance=request.user)
 
-    context={'p_form': p_form, 'u_form': u_form}
-    return render(request, 'app_users/edit_profile.html',context )
+    context = {'p_form': p_form, 'u_form': u_form}
+    return render(request, 'app_users/edit_profile.html', context)

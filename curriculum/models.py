@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 import os
 
+from app_users.models import News
+
 
 # Create your models here.
 class Standard(models.Model):
@@ -83,7 +85,8 @@ class Lesson(models.Model):
 
 
 class Comment(models.Model):
-    lesson_name = models.ForeignKey(Lesson,null=True, on_delete=models.CASCADE,related_name='comments')
+    lesson_name = models.ForeignKey(Lesson, null=True, blank=True, on_delete=models.CASCADE, related_name='comments_lesson')
+    new_name = models.ForeignKey(News, null=True, blank=True, on_delete=models.CASCADE, related_name='comments_new')
     comm_name = models.CharField(max_length=100, blank=True)
     # reply = models.ForeignKey("Comment", null=True, blank=True, on_delete=models.CASCADE,related_name='replies')
     author = models.ForeignKey(User,on_delete=models.CASCADE)

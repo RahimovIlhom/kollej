@@ -57,6 +57,9 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('new_detail', args=[str(self.pk)])
+
 def path_and_rename_teacher(instance, filename):
     upload_to = 'Images/HonoraryTeachers/'
     ext = filename.split('.')[-1]
