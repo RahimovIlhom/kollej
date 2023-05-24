@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -134,7 +135,7 @@ def news_view(request):
     return render(request, 'app_users/news.html', {'news': news})
 
 
-class NewDetailView(DetailView, FormView):
+class NewDetailView(LoginRequiredMixin, DetailView, FormView):
     model = News
     template_name = 'app_users/new_detail.html'
     form_class = CommentForm
@@ -242,3 +243,20 @@ def edit_profile(request):
 
     context = {'p_form': p_form, 'u_form': u_form}
     return render(request, 'app_users/edit_profile.html', context)
+
+
+class CommentsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Comment
+    template_name = 'curriculum/all_comments.html'
+
+    def get_context_data(self, **kwargs):
+        profiles = UserProfileInfo.objects.all()
+        users = User.objects.all()
+        context = super(CommentsListView, self).get_context_data(**kwargs)
+        context['profiles'] = profiles
+        context['users'] = users
+        context['comments'] = Comment.objects.all()
+        return context
+
+    def test_func(self):
+        return self.request.user.is_superuser

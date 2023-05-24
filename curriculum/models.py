@@ -81,7 +81,7 @@ class Lesson(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('curriculum:lesson_list', kwargs={'slug': self.subject.slug, 'standard': self.Standard.slug})
+        return reverse('curriculum:lesson_detail', kwargs={'standard': self.Standard.slug, 'subject': self.subject.slug, 'slug': self.name})
 
 
 class Comment(models.Model):

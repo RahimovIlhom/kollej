@@ -161,6 +161,9 @@
               <li><a href="{% url 'news' %}">Yangiliklar</a></li>
               <li><a href="{% url 'about_school' %}">Maktabimiz haqida</a></li>
               <li><a href="{% url 'about_us' %}">Biz haqimizda</a></li>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'comments' %}">All comments</a></li>
+              {% endif %}
             </ul>
           </div>
 
