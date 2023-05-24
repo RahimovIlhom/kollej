@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import (TemplateView, DetailView,
                                   ListView, CreateView,
                                   UpdateView, DeleteView, FormView)
-from .models import Standard, Subject, Lesson
+from .models import Standard, Subject, Lesson, Comment
 from .forms import LessonForm, ReplyForm, CommentForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -47,7 +47,7 @@ class LessonDetailView(DetailView, FormView):
             context['form2'] = self.second_form_class()
         context['profiles'] = profiles
         context['users'] = users
-        # context['comments'] = Comment.objects.filter(id=self.object.id)
+        context['comments'] = Comment.objects.filter(lesson_name_id=self.object.id)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -92,7 +92,7 @@ class LessonDetailView(DetailView, FormView):
         self.object = self.get_object()
         fm = form.save(commit=False)
         fm.author = self.request.user
-        fm.lesson_name = self.object.comments.name
+        fm.lesson_name = self.object
         fm.lesson_name_id = self.object.id
         fm.save()
         return HttpResponseRedirect(self.get_success_url())

@@ -6,12 +6,12 @@ from curriculum.checkComment.classificationText import checkNegComment
 from curriculum.forms import CommentForm, ReplyForm
 from .forms import UserForm, UserProfileInfoForm, ProfileUpdateForm, UserUpdateForm
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.views.generic import TemplateView, FormView
 from curriculum.views import Standard
-from curriculum.models import Courses
+from curriculum.models import Courses, Comment
 from .models import UserProfileInfo, News, HonoraryTeachers
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
@@ -140,6 +140,19 @@ class NewDetailView(DetailView, FormView):
     form_class = CommentForm
     second_form_class = ReplyForm
 
+    def get_context_data(self, **kwargs):
+        profiles = UserProfileInfo.objects.all()
+        users = User.objects.all()
+        context = super(NewDetailView, self).get_context_data(**kwargs)
+        if 'form' not in context:
+            context['form'] = self.form_class()
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class()
+        context['profiles'] = profiles
+        context['users'] = users
+        context['comments'] = Comment.objects.filter(new_name_id=self.object.id)
+        return context
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if 'form' in request.POST:
@@ -169,6 +182,27 @@ class NewDetailView(DetailView, FormView):
                 return self.form2_valid(form)
 
         return self.form_invalid(form)
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        return reverse_lazy('new_detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.author = self.request.user
+        fm.new_name = self.object
+        fm.new_name_id = self.object.id
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form2_valid(self, form):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.author = self.request.user
+        fm.comment_name_id = self.request.POST.get('comment.id')
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 def profile(request):
